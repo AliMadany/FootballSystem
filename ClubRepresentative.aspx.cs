@@ -14,13 +14,22 @@ namespace M3gogo
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string connStr = WebConfigurationManager.ConnectionStrings["master"].ToString();
+            string connStr = WebConfigurationManager.ConnectionStrings["FootballContext"].ToString();
             SqlConnection conn = new SqlConnection(connStr);
+            //name clubname username password
 
-            // SqlCommand matches = new SqlCommand("availableMatchesToAttend", conn);
-            // matches.CommandType = System.Data.CommandType.Text;
-            // matches.CommandText = "SELECT fn_availableMatchesToAttend()";
+            if (Session["isClubRepresentativeLoggedIn"] == "true")
+            {
+                Control signup = Page.FindControl("signup");
+                form1.Controls.Remove(signup);
 
+            }
+            else
+            {
+                Control login = Page.FindControl("login");
+                form1.Controls.Remove(login);
+            }
+    
             SqlCommand matches = conn.CreateCommand();
             matches.CommandText = "SELECT * FROM allMatches";
 
@@ -50,6 +59,51 @@ namespace M3gogo
             DataView dv = new DataView(dt);
             itemsGrid.DataSource = dv;
             itemsGrid.DataBind();
+        }
+
+        protected void signUp(object sender, EventArgs e)
+        {
+            string connStr = WebConfigurationManager.ConnectionStrings["FootballContext"].ToString();
+            SqlConnection conn = new SqlConnection(connStr);
+
+            String n = name.Text;
+            String cn = clubName.Text;
+            String u = username.Text;
+            String p = password.Text;
+
+
+            SqlCommand cmd =  new SqlCommand("addRepresentative", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@representativeName", n));
+            cmd.Parameters.Add(new SqlParameter("@clubName", cn));
+            cmd.Parameters.Add(new SqlParameter("@representativeUsername", u));
+            cmd.Parameters.Add(new SqlParameter("@representativePassword", p));
+
+            //SqlParameter success = cmd.Parameters.Add("@success",SqlDbType.Int);
+            //SqlParameter type = cmd.Parameters.Add("@type", SqlDbType.Int);
+            //success.Direction = ParameterDirection.Output;
+            //type.Direction = ParameterDirection.Output;
+
+            try
+            {
+                conn.Open();
+                int success = cmd.ExecuteNonQuery();
+                conn.Close();
+
+                if (success == 1)
+                {
+                    Response.Write("nice");
+                }
+                else
+                {
+                    Response.Write("not nice");
+                }
+            }
+            catch
+            {
+                Response.Write("not nice");
+            }
+
         }
     }
 }

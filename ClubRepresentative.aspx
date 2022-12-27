@@ -8,11 +8,35 @@
 </head>
 <body>
 
-    <h1>Fan Page</h1>
+    <h1>Club Representative Page</h1>
     <br />
-    <h3>Available Matches</h3>
-    <form runat="server">
-
+    <form id="form1" runat="server">
+        <dive id="signup" runat="server">
+            <br />
+            Name
+            <br />
+            <asp:TextBox runat="server" id="name"></asp:TextBox>
+                        <br />
+            Club Name
+            <br />
+            <asp:TextBox runat="server" id="clubName"></asp:TextBox>
+                        <br />
+            Username
+            <br />
+            <asp:TextBox runat="server" id="username"></asp:TextBox>
+                        <br />
+            Password
+            <br />
+            <asp:TextBox runat="server" id="password"></asp:TextBox>
+            <br />
+            <asp:Button runat="server" ID="submit" OnClick="signUp" Text="Register!" />
+        </dive>
+        <div id="login" runat="server">
+            <asp:Label>Name login</asp:Label>
+            <asp:TextBox runat="server" id="TextBox1"></asp:TextBox>
+            <asp:Button runat="server" ID="Button1" OnClick="signUp" />
+        </div>
+      
     </form>
     <asp:DataGrid id="itemsGrid" runat="server"></asp:DataGrid>
 
