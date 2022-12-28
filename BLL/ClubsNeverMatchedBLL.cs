@@ -37,6 +37,7 @@ namespace M3gogo.BLL
                         clubsNeverMatched club = new clubsNeverMatched();
                         club.Host = rdr["Host"].ToString();
                         club.Guest = rdr["Guest"].ToString();
+                       
 
 
 

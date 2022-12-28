@@ -55,21 +55,50 @@ namespace M3gogo.Controllers
                 }
             }
 
-            /*if (ModelState.IsValid)
-            {
-                dBContext.clubs.Add(club);
-                dBContext.SaveChanges();
-                return RedirectToAction("Index", "Club");
-            }
-*/
+   
 
 
             return View(club);
         }
 
 
+        [HttpGet]
+        
+        public ActionResult Deleteclub() // display view UI form to enter club details get method
+        {
+
+            return View();
+        }
 
 
-       
+        [HttpPost]
+        
+        public ActionResult Deleteclub(Club club)
+        {
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+                string query = "Delete From club where cName =  @cName";
+
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+
+                    command.Parameters.AddWithValue("@cName", club.Name);
+
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+
+
+                }
+            }
+            return View (club);
+
+        }
+
+
+
     }
 }
