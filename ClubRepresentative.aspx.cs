@@ -160,7 +160,47 @@ namespace M3gogo
 
         protected void getStadiums(object sender, EventArgs e)
         {
+            string connStr = WebConfigurationManager.ConnectionStrings["FootballContext"].ToString();
+            SqlConnection conn = new SqlConnection(connStr);
 
+            try
+            {
+                SqlCommand club = conn.CreateCommand();
+                club.CommandText = "SELECT * FROM viewAvailableStadiumsOn('" + DateTime.Parse(textBox2.Text) + "')";
+                conn.Open();
+    
+
+                SqlDataReader rdr = club.ExecuteReader();
+
+                DataTable dt = new DataTable();
+                DataRow dr;
+
+                dt.Columns.Add("stadiumNamw");
+                dt.Columns.Add("stadiumLocation");
+                dt.Columns.Add("stadiumCapacity");
+
+                while (rdr.Read())
+                {
+                    dr = dt.NewRow();
+                    string name = rdr.GetString(0);
+                    string location = rdr.GetString(1);
+                    string capacity = rdr.GetString(2);
+
+                    dr[0] = name;
+                    dr[1] = location;
+                    dr[2] = capacity;
+                    dt.Rows.Add(dr);
+
+                }
+                DataView dv = new DataView(dt);
+                itemsGrid3.DataSource = dv;
+                itemsGrid3.DataBind();
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex);
+            }
         }
     }
 }

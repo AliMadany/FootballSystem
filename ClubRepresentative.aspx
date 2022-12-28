@@ -10,7 +10,7 @@
 
     <h1>Club Representative Page</h1>
     <br />
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" enableviewstate="false">
         <div id="signup" runat="server">
             <br />
             Name
@@ -37,22 +37,24 @@
             <asp:Button runat="server" ID="Button1" OnClick="signUp" />
         </div>
 
-        <div id="stadiums" runat="server">
-            <br />
-            DateTime
-            <br />
-            <
-            <br />
-            <asp:Button runat="server" ID="Button2" OnClick="signUp" />
-        </div>
       
-    </form>
+
     <h4>Club Info</h4>
     <asp:DataGrid id="itemsGrid" runat="server"></asp:DataGrid>
      <h4>Upcoming Matches</h4>
     <asp:DataGrid id="itemsGrid2" runat="server"></asp:DataGrid>
 
+            <div id="stadiums" runat="server">
+            <br />
+            DateTime
+            <br />
+            <asp:TextBox runat="server" ID="textBox2" TextMode="DateTimeLocal"></asp:TextBox>
+            <br />
+            <asp:Button runat="server" ID="Button2" OnClick="getStadiums" Text="show stadiums" />
+                    <asp:DataGrid EnableViewState="false" id="itemsGrid3" runat="server"></asp:DataGrid>
+        </div>
 
+            </form>
 </body>
 </html>
 
