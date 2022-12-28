@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml;
 
 namespace M3gogo
 {
@@ -32,7 +33,7 @@ namespace M3gogo
                     conn.Open();
                     //Response.Write("SELECT * FROM allClubs WHERE cName = '" + Session["clubName"] + "'");
 
-                    SqlDataReader rdr = club.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+                    SqlDataReader rdr = club.ExecuteReader();
 
                     DataTable dt = new DataTable();
                     DataRow dr;
@@ -54,15 +55,15 @@ namespace M3gogo
                     DataView dv = new DataView(dt);
                     itemsGrid.DataSource = dv;
                     itemsGrid.DataBind();
-                    conn.Close();
 
 
-                    SqlCommand matches = conn.CreateCommand();
-                    matches.CommandText = "SELECT * FROM upcomingMatchesOfClub('" + Session["clubName"] + "')";
-                    conn.Open();
+
+                    SqlCommand match = conn.CreateCommand();
+                    match.CommandText = "SELECT * FROM upcomingMatchesOfClub('" + Session["clubName"] + "')";
+                    //conn.Open();
                     //Response.Write("SELECT * FROM allClubs WHERE cName = '" + Session["clubName"] + "'");
 
-                    SqlDataReader rdr2 = matches.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+                    SqlDataReader rdr2 = match.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
 
                     DataTable dt2 = new DataTable();
                     DataRow dr2;
@@ -77,13 +78,21 @@ namespace M3gogo
                         dr2 = dt2.NewRow();
                         string clubName = rdr2.GetString(rdr2.GetOrdinal("clubName"));
                         string second = rdr2.GetString(rdr2.GetOrdinal("secondClubName"));
-                        string start = rdr2.GetString(rdr2.GetOrdinal("startTime"));
-                        string sname = rdr2.GetString(rdr2.GetOrdinal("stadiumName"));
+                        DateTime start = rdr2.GetDateTime(rdr2.GetOrdinal("startTime"));
+                        string sname = "";
+                        if(!rdr2.IsDBNull(3))
+                        {
+                            sname = rdr2.GetString(rdr2.GetOrdinal("stadiumName"));
+                        }
+                     
+           
 
                         dr2[0] = clubName;
                         dr2[1] = second;
                         dr2[2] = start;
                         dr2[3] = sname;
+                        
+
                         dt2.Rows.Add(dr2);
 
                     }
@@ -91,9 +100,9 @@ namespace M3gogo
                     itemsGrid2.DataSource = dv2;
                     itemsGrid2.DataBind();
                 }
-                catch
+                catch(Exception ex)
                 {
-                    Response.Write("something went wrong");
+                    Response.Write(ex);
                 }
             }
             else
