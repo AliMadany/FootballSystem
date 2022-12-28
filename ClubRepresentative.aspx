@@ -11,7 +11,7 @@
     <h1>Club Representative Page</h1>
     <br />
     <form id="form1" runat="server">
-        <dive id="signup" runat="server">
+        <div id="signup" runat="server">
             <br />
             Name
             <br />
@@ -30,11 +30,20 @@
             <asp:TextBox runat="server" id="password"></asp:TextBox>
             <br />
             <asp:Button runat="server" ID="submit" OnClick="signUp" Text="Register!" />
-        </dive>
+        </div>
         <div id="login" runat="server">
             <asp:Label>Name login</asp:Label>
             <asp:TextBox runat="server" id="TextBox1"></asp:TextBox>
             <asp:Button runat="server" ID="Button1" OnClick="signUp" />
+        </div>
+
+        <div id="stadiums" runat="server">
+            <br />
+            DateTime
+            <br />
+            <
+            <br />
+            <asp:Button runat="server" ID="Button2" OnClick="signUp" />
         </div>
       
     </form>

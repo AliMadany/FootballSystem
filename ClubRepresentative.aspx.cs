@@ -157,5 +157,10 @@ namespace M3gogo
             }
 
         }
+
+        protected void getStadiums(object sender, EventArgs e)
+        {
+
+        }
     }
 }
