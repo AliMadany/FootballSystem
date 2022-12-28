@@ -54,6 +54,17 @@
                     <asp:DataGrid EnableViewState="false" id="itemsGrid3" runat="server"></asp:DataGrid>
         </div>
 
+    <h4>Make Host Request</h4>
+                    <br />
+            DateTime
+            <br />
+            <asp:TextBox runat="server" ID="textBox3" TextMode="DateTimeLocal"></asp:TextBox>
+                            <br />
+            StadiumName
+            <br />
+            <asp:TextBox runat="server" ID="textBox4"></asp:TextBox>
+                    <br />
+            <asp:Button runat="server" ID="Button3" OnClick="submitRequest" Text="Submit Request" />
             </form>
 </body>
 </html>

@@ -202,5 +202,43 @@ namespace M3gogo
                 Response.Write(ex);
             }
         }
+
+        protected void submitRequest(object sender, EventArgs e)
+        {
+            string connStr = WebConfigurationManager.ConnectionStrings["FootballContext"].ToString();
+            SqlConnection conn = new SqlConnection(connStr);
+
+            DateTime d = DateTime.Parse(textBox3.Text);
+            String n = textBox4.Text;
+            
+
+
+            SqlCommand cmd = new SqlCommand("addHostRequest", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@clubName", Session["clubName"]));
+            cmd.Parameters.Add(new SqlParameter("@stadiumName", n));
+            cmd.Parameters.Add(new SqlParameter("@startTime", d));
+
+            try
+            {
+                conn.Open();
+                int success = cmd.ExecuteNonQuery();
+                conn.Close();
+
+                if (success != 0)
+                {
+                    Response.Write("request submitted successfully");
+                }
+                else
+                {
+                    Response.Write("something went wrong");
+                }
+            }
+            catch(Exception ex)
+            {
+                Response.Write(ex);
+            }
+
+        }
     }
 }
