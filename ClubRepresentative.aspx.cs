@@ -22,7 +22,79 @@ namespace M3gogo
             {
                 Control signup = Page.FindControl("signup");
                 form1.Controls.Remove(signup);
+                Control login = Page.FindControl("login");
+                form1.Controls.Remove(login);
 
+                try
+                {
+                    SqlCommand club = conn.CreateCommand();
+                    club.CommandText = "SELECT * FROM allClubs WHERE ClubName = '" + Session["clubName"] + "'";
+                    conn.Open();
+                    //Response.Write("SELECT * FROM allClubs WHERE cName = '" + Session["clubName"] + "'");
+
+                    SqlDataReader rdr = club.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+
+                    DataTable dt = new DataTable();
+                    DataRow dr;
+
+                    dt.Columns.Add("ClubName");
+                    dt.Columns.Add("ClubLocation");
+
+                    while (rdr.Read())
+                    {
+                        dr = dt.NewRow();
+                        string name = rdr.GetString(rdr.GetOrdinal("ClubName"));
+                        string location = rdr.GetString(rdr.GetOrdinal("ClubLocation"));
+ 
+                        dr[0] = name;
+                        dr[1] = location;
+                        dt.Rows.Add(dr);
+
+                    }
+                    DataView dv = new DataView(dt);
+                    itemsGrid.DataSource = dv;
+                    itemsGrid.DataBind();
+                    conn.Close();
+
+
+                    SqlCommand matches = conn.CreateCommand();
+                    matches.CommandText = "SELECT * FROM upcomingMatchesOfClub('" + Session["clubName"] + "')";
+                    conn.Open();
+                    //Response.Write("SELECT * FROM allClubs WHERE cName = '" + Session["clubName"] + "'");
+
+                    SqlDataReader rdr2 = matches.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+
+                    DataTable dt2 = new DataTable();
+                    DataRow dr2;
+
+                    dt2.Columns.Add("clubName");
+                    dt2.Columns.Add("SecondClubName");
+                    dt2.Columns.Add("startTime");
+                    dt2.Columns.Add("stadiumName");
+
+                    while (rdr2.Read())
+                    {
+                        dr2 = dt2.NewRow();
+                        string clubName = rdr2.GetString(rdr2.GetOrdinal("clubName"));
+                        string second = rdr2.GetString(rdr2.GetOrdinal("secondClubName"));
+                        string start = rdr2.GetString(rdr2.GetOrdinal("startTime"));
+                        string sname = rdr2.GetString(rdr2.GetOrdinal("stadiumName"));
+
+                        dr2[0] = clubName;
+                        dr2[1] = second;
+                        dr2[2] = start;
+                        dr2[3] = sname;
+                        dt2.Rows.Add(dr2);
+
+                    }
+                    DataView dv2 = new DataView(dt2);
+                    itemsGrid2.DataSource = dv2;
+                    itemsGrid2.DataBind();
+                }
+                catch
+                {
+                    Response.Write("something went wrong");
+                }
             }
             else
             {
@@ -30,35 +102,7 @@ namespace M3gogo
                 form1.Controls.Remove(login);
             }
     
-            SqlCommand matches = conn.CreateCommand();
-            matches.CommandText = "SELECT * FROM allMatches";
 
-            conn.Open();
-
-            SqlDataReader rdr = matches.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
-
-            DataTable dt = new DataTable();
-            DataRow dr;
-
-            dt.Columns.Add("Host");
-            dt.Columns.Add("Guest");
-            dt.Columns.Add("stadiumName");
-            while (rdr.Read())
-            {
-                dr = dt.NewRow();
-                string host = rdr.GetString(rdr.GetOrdinal("Host"));
-                string guest = rdr.GetString(rdr.GetOrdinal("Guest"));
-                DateTime startTime = rdr.GetDateTime(rdr.GetOrdinal("startTime"));
-                dr[0] = host;
-                dr[1] = guest;
-                dr[2] = startTime;
-                dt.Rows.Add(dr);
-
-
-            }
-            DataView dv = new DataView(dt);
-            itemsGrid.DataSource = dv;
-            itemsGrid.DataBind();
         }
 
         protected void signUp(object sender, EventArgs e)
@@ -79,29 +123,28 @@ namespace M3gogo
             cmd.Parameters.Add(new SqlParameter("@representativeUsername", u));
             cmd.Parameters.Add(new SqlParameter("@representativePassword", p));
 
-            //SqlParameter success = cmd.Parameters.Add("@success",SqlDbType.Int);
-            //SqlParameter type = cmd.Parameters.Add("@type", SqlDbType.Int);
-            //success.Direction = ParameterDirection.Output;
-            //type.Direction = ParameterDirection.Output;
-
             try
             {
                 conn.Open();
                 int success = cmd.ExecuteNonQuery();
                 conn.Close();
 
-                if (success == 1)
+                if (success != 0)
                 {
-                    Response.Write("nice");
+                    Session["isClubRepresentativeLoggedIn"] = "true";
+                    Session["clubName"] = cn;
+                    // Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                    //     Response.Cache.SetExpires(DateTime.Now.AddMinutes(-30));
+                    Page_Load(sender, e);
                 }
                 else
                 {
-                    Response.Write("not nice");
+                    Response.Write("something went wrong");
                 }
             }
             catch
             {
-                Response.Write("not nice");
+               Response.Write("something went wrong");
             }
 
         }

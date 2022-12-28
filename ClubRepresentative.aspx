@@ -38,7 +38,10 @@
         </div>
       
     </form>
+    <h4>Club Info</h4>
     <asp:DataGrid id="itemsGrid" runat="server"></asp:DataGrid>
+     <h4>Upcoming Matches</h4>
+    <asp:DataGrid id="itemsGrid2" runat="server"></asp:DataGrid>
 
 
 </body>
