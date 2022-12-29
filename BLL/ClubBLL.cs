@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace M3gogo.BLL
 {
-    public class ClubsNeverMatchedBLL
+    public class ClubBLL
     {
 
         public List<clubsNeverMatched> getclubsnevermatch(clubsNeverMatched neverwatched)

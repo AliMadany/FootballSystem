@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using M3gogo.BLL;
@@ -36,5 +37,32 @@ namespace M3gogo.Controllers
 
             return View(bfan);
         }
+       
+        
+        
+        [HttpGet]
+        public ActionResult purchaseticket()
+        {
+
+            return View();
+
+        }
+        [HttpPost]
+        public ActionResult purchaseticket(Fan fan)
+        {
+
+            FanTicketBLL ticket = new FanTicketBLL();
+
+
+            ticket.purchaseticket(fan);
+
+            return View();
+
+        }
+
+
+
+
+
     }
 }

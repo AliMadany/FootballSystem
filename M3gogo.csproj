@@ -200,10 +200,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="BLL\ClubsNeverMatchedBLL.cs" />
+    <Compile Include="BLL\ClubBLL.cs" />
+    <Compile Include="BLL\FanTicketBLL.cs" />
     <Compile Include="BLL\MatchBLL.cs" />
     <Compile Include="BLL\RegisterBLL.cs" />
     <Compile Include="BLL\StadiumBLL.cs" />
+    <Compile Include="ClubRepresentative.aspx.cs">
+      <DependentUpon>ClubRepresentative.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClubRepresentative.aspx.designer.cs">
+      <DependentUpon>ClubRepresentative.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\baseController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\ClubsNeverMatchedController.cs" />
@@ -216,34 +224,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="LoginAndRegister\Club Representative.aspx.cs">
-      <DependentUpon>Club Representative.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="LoginAndRegister\Club Representative.aspx.designer.cs">
-      <DependentUpon>Club Representative.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="LoginAndRegister\LogIn.aspx.cs">
-      <DependentUpon>LogIn.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="LoginAndRegister\LogIn.aspx.designer.cs">
-      <DependentUpon>LogIn.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="LoginAndRegister\Sports Association Manager.aspx.cs">
-      <DependentUpon>Sports Association Manager.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="LoginAndRegister\Sports Association Manager.aspx.designer.cs">
-      <DependentUpon>Sports Association Manager.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="LoginAndRegister\Stadium Manager.aspx.cs">
-      <DependentUpon>Stadium Manager.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="LoginAndRegister\Stadium Manager.aspx.designer.cs">
-      <DependentUpon>Stadium Manager.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="Models\allMatches.cs" />
     <Compile Include="Models\AM.cs" />
     <Compile Include="Models\availableMatchesToAttend.cs" />
     <Compile Include="Models\clubsNeverMatched.cs" />
@@ -253,15 +234,9 @@
     <Compile Include="Models\Stadium.cs" />
     <Compile Include="Models\Club.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="LoginAndRegister\Register.aspx.cs">
-      <DependentUpon>Register.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="LoginAndRegister\Register.aspx.designer.cs">
-      <DependentUpon>Register.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClubRepresentative.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -270,11 +245,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="LoginAndRegister\Club Representative.aspx" />
-    <Content Include="LoginAndRegister\LogIn.aspx" />
-    <Content Include="LoginAndRegister\Register.aspx" />
-    <Content Include="LoginAndRegister\Sports Association Manager.aspx" />
-    <Content Include="LoginAndRegister\Stadium Manager.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -314,8 +284,17 @@
     <Content Include="Views\Register\signUpFan.cshtml" />
     <Content Include="Views\base\Index.cshtml" />
     <Content Include="Views\base\insideclub.cshtml" />
-    <Content Include="Views\base\adminview.cshtml" />
     <Content Include="Views\Club\Deleteclub.cshtml" />
+    <Content Include="Views\base\insidestadium.cshtml" />
+    <Content Include="Views\base\insidefan.cshtml" />
+    <Content Include="Views\base\insideSAM.cshtml" />
+    <Content Include="Views\Match\Creatematch.cshtml" />
+    <Content Include="Views\Match\Deletematch.cshtml" />
+    <Content Include="Views\base\RegisterPage.cshtml" />
+    <Content Include="Views\Fan\purchaseticket.cshtml" />
+    <Content Include="Views\Match\Upcoming.cshtml" />
+    <Content Include="Views\Match\Alreadyplayed.cshtml" />
+    <Content Include="Views\Match\viewavailablematch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

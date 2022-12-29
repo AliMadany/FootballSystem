@@ -10,7 +10,7 @@ using M3gogo.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using M3gogo.DBLayer;
 using System.Configuration;
-using M3gogo.LoginAndRegister;
+
 
 namespace M3gogo.BLL
 {

@@ -35,54 +35,113 @@ namespace M3gogo.Controllers
                 return View();
             }
             //DateTime pass = DateTime.Parse(availableMatchesToAttend1);
-            int res = DateTime.Compare(availableMatchesToAttend1.start_time, DateTime.Now);
+           // int res = DateTime.Compare(availableMatchesToAttend1.start_time, DateTime.Now);
 
-            if (res > 0)
-            {
-                return RedirectToAction("Viewupcomingtest", new { CurrentDate = availableMatchesToAttend1.start_time });
-
-            }
-            else
-            {
-                return RedirectToAction("ViewAlreadyPlayed", new { CurrentDate = availableMatchesToAttend1.start_time });
-            }
-
-
-        }
-
-
-
-
-
-        [HttpGet]
-
-        public ActionResult Viewupcomingtest(DateTime CurrentDate) // post method to get called automatically after user clicks submit button to submit form to db with club model data
-        {
-
-            MatchBLL match = new MatchBLL();
-            List<Match> list = match.Viewupcomingtest(CurrentDate).ToList();
-           
             
+              return RedirectToAction("viewavailablematch", new { CurrentDate = availableMatchesToAttend1.start_time });
+
+         
+
+        }
 
 
-            return View(list);
+           [HttpGet]
+     
+           public ActionResult viewavailablematch(DateTime CurrentDate) // post method to get called automatically after user clicks submit button to submit form to db with club model data
+           {
+
+               MatchBLL match = new MatchBLL();
+               List<Match> list = match.viewavailablematch(CurrentDate).ToList();
+
+
+
+
+               return View(list);
+           }
+
+
+
+          /* [HttpGet]
+
+           public ActionResult ViewAlreadyPlayed(DateTime CurrentDate) // post method to get called automatically after user clicks submit button to submit form to db with club model data
+           {
+
+               MatchBLL match = new MatchBLL();
+               List<Match> list = match.ViewAlreadyPlayed(CurrentDate).ToList();
+
+
+
+
+               return View(list);
+           }*/
+
+        [HttpGet]
+        public ActionResult Upcoming() // display view UI form to enter club details get method
+        {
+
+            MatchBLL match = new MatchBLL();
+            List<allMatches>  matches = match.Upcoming().ToList();
+
+
+            return View(matches);
+        }
+
+        [HttpGet]
+        public ActionResult Alreadyplayed() // display view UI form to enter club details get method
+        {
+
+            MatchBLL match = new MatchBLL();
+            List<allMatches> matches = match.Upcoming().ToList();
+
+
+            return View(matches);
         }
 
 
 
         [HttpGet]
-
-        public ActionResult ViewAlreadyPlayed(DateTime CurrentDate) // post method to get called automatically after user clicks submit button to submit form to db with club model data
+        public ActionResult Creatematch() // display view UI form to enter club details get method
         {
 
-            MatchBLL match = new MatchBLL();
-            List<Match> list = match.ViewAlreadyPlayed(CurrentDate).ToList();
-
-
-
-
-            return View(list);
+            return View();
         }
 
+        [HttpPost]
+        public ActionResult Creatematch(Match match) // post method to get called automatically after user clicks submit button to submit form to db with club model data
+        {
+
+        
+            MatchBLL newmatch = new MatchBLL();
+            newmatch.Creatematch(match);
+
+
+
+            return View();
+
+
+        }
+
+
+        [HttpGet]
+        public ActionResult Deletematch() // display view UI form to enter club details get method
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Deletematch(Match match) // post method to get called automatically after user clicks submit button to submit form to db with club model data
+        {
+
+
+            MatchBLL newmatch = new MatchBLL();
+            newmatch.Deletematch(match);
+
+
+
+            return View();
+
+
+        }
     }
 }

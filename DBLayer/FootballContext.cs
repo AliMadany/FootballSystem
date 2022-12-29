@@ -13,6 +13,9 @@ namespace M3gogo.DBLayer
        
         public DbSet <Club> clubs { get; set; }
 
+        public DbSet<AM> users { get; set; }
+
         public System.Data.Entity.DbSet<M3gogo.Models.Stadium> Stadia { get; set; }
     }
+
 }

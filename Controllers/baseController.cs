@@ -24,6 +24,27 @@ namespace M3gogo.Controllers
             return View();
         }
 
+        public ActionResult insidestadium()
+        {
+            return View();
+        }
+
+        public ActionResult insidefan()
+        {
+            return View();
+        }
+        public ActionResult insideSAM()
+        {
+            return View();
+        }
+
+        public ActionResult RegisterPage() {
+
+            return View();
+        }
+
+
+        
 
     }
 }

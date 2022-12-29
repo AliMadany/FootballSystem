@@ -15,6 +15,8 @@ namespace M3gogo.Models
 
         public DateTime StartTime { get; set; }
 
+        public DateTime endTime { get; set; }
+
         public String Stadium { get; set; }
     }
 }

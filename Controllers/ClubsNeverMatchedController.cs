@@ -14,7 +14,7 @@ namespace M3gogo.Controllers
     {
 
 
-        ClubsNeverMatchedBLL nevermatchedBLL = new ClubsNeverMatchedBLL();
+        ClubBLL nevermatchedBLL = new ClubBLL();
 
 
         // GET: ClubsNeverMatched
